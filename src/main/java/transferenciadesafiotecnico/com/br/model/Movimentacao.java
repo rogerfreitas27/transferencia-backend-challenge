@@ -11,8 +11,9 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-
+import lombok.Setter;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -22,6 +23,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Getter
+@Setter
 public class Movimentacao {
 
     @Id
@@ -34,15 +37,16 @@ public class Movimentacao {
 
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "conta_origem_id")
+    @JoinColumn(name = "fk_conta_origem")
     private Conta origem;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "conta_destino_id")
+    @JoinColumn(name = "fk_conta_destino")
     private Conta destino;
 
-    @Column(name = "data_hora_movimentacao")
+    @Column(name = "data_hora_movimentacao", insertable = false, updatable = false)
     private LocalDateTime dataHoraMovimentacao;
 
-
+    @Column(name="descricao")
+    private String descricao;
 }

@@ -1,5 +1,6 @@
 package transferenciadesafiotecnico.com.br.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +13,7 @@ import transferenciadesafiotecnico.com.br.model.dto.ContaRecord;
 import transferenciadesafiotecnico.com.br.service.ContaService;
 
 @RestController
-@RequestMapping("/conta")
+@RequestMapping("/contas")
 @CrossOrigin
 @RequiredArgsConstructor
 public class ContaController {
@@ -20,7 +21,7 @@ public class ContaController {
     private final ContaService service;
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContaRecord>criarConta(@RequestBody  ContaRecord conta){
+    public ResponseEntity<ContaRecord>criarConta(@RequestBody  @Valid ContaRecord conta){
         return ResponseEntity.ok(service.criarConta(conta));
     }
 }

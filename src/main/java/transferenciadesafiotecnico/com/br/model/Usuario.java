@@ -1,5 +1,6 @@
 package transferenciadesafiotecnico.com.br.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -7,6 +8,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -31,16 +33,19 @@ public class Usuario {
     @Column(name="nome_completo")
     private String nomeCompleto;
 
-    @Column(name="cpf_cnpj")
+    @Column(name="cpf_cnpj", unique = true)
     private String cpfCnpj;
 
     @Enumerated(EnumType.STRING)
     @Column(name="tipo_pessoa")
     private TipoPessoaEnum tipoPessoa;
 
-    @Column(name="email")
+    @Column(name="email", unique = true)
     private String email;
 
     @Column(name="senha")
     private String senha;
+
+    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
+    private Conta conta;
 }
